@@ -11,14 +11,14 @@ function solution(today, terms, privacies) {
     // 객체를 사용해서 빠르게 찾고, 28 이 곱해진 값을 바로 가져올 수 있다
     const termsObj = {}
     terms.forEach(e => {
-        const termArr = e.split(" ")
-        termsObj[termArr[0]] = termArr[1] * 28
+        const [kind,month] = e.split(" ")
+        termsObj[kind] = month * 28
     });
     const todayNum = convertToNumber(today)
 
     privacies.forEach((e,idx) => {
-        const privacieArr = e.split(" ")
-        const value = convertToNumber(privacieArr[0]) + termsObj[privacieArr[1]]
+        const [joinData,joinKind] = e.split(" ")
+        const value = convertToNumber(joinData) + termsObj[joinKind]
         if (value <= todayNum) answer.push(idx+1)
     })
 
@@ -27,10 +27,9 @@ function solution(today, terms, privacies) {
 
 /** 숫자 바꿔주기 */
 function convertToNumber(str){
-    let num = str.split(".")
-    num = 
-    ((Number(num[0])-2000) * 336) +
-    Number(num[1]) * 28 + 
-    Number(num[2])
-    return num
+    let [year,month,date] = str.split(".")
+    return ((Number(year)-2000) * 336) +
+    Number(month) * 28 + 
+    Number(date)
+
 }
